@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AlertController, LoadingController, MenuController, NavController } from 'ionic-angular';
+import { StorageData } from '../../models/storage-data';
 import { User } from '../../models/user';
 import { LoginService } from '../../services/login-service';
+import { StorageDataService } from '../../services/storage-data-service';
 import { HomePage } from '../home/home';
 
 @Component({
@@ -15,7 +17,8 @@ export class LoginPage implements OnInit {
     private loadingCtrl: LoadingController,
     private navCtrl: NavController,
     private menuCtrl: MenuController,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private storageDataService: StorageDataService
   ) {}
 
   ngOnInit() {
@@ -36,6 +39,10 @@ export class LoginPage implements OnInit {
     this.loginService.login(user).subscribe((user: User) => {
       if(user.email) {
         loading.dismiss().then(() => {
+          let storageData = new StorageData();
+          storageData.user = user;
+          this.storageDataService.saveStorageData(storageData);
+
           this.menuCtrl.enable(true);
           this.navCtrl.setRoot(HomePage);
         });

@@ -1,15 +1,22 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
-import { Config } from '../../models/config';
+import { StorageData } from '../../models/storage-data';
+import { User } from '../../models/user';
+import { StorageDataService } from '../../services/storage-data-service';
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
-  acoes = [];
-  
-  constructor(public navCtrl: NavController) {
-    this.acoes = Config.ACOES;
+  user: User;
+
+  constructor(
+    private storageDataService: StorageDataService
+  ) {}
+
+  ionViewWillEnter() {
+    this.storageDataService.getStorageData().then((sd: StorageData) => {
+      this.user = sd.user;
+    }).catch();
   }
 }

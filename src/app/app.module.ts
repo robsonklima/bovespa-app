@@ -9,6 +9,8 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 import { LoginService } from '../services/login-service';
+import { StorageDataService } from '../services/storage-data-service';
+import { IonicStorageModule } from '@ionic/storage';
 
 @NgModule({
   declarations: [
@@ -20,6 +22,7 @@ import { LoginService } from '../services/login-service';
     BrowserModule,
     IonicModule.forRoot(MyApp),
     HttpModule,
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -31,7 +34,8 @@ import { LoginService } from '../services/login-service';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    LoginService
+    LoginService,
+    StorageDataService
   ]
 })
 export class AppModule {}
