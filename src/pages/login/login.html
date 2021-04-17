@@ -1,0 +1,30 @@
+<ion-content>
+  <div>
+    <div>
+      <div text-center>
+        <h1 class="title"><strong>Bovespa</strong> <i>App</i></h1>
+        <p class="subtitle">Sistema de Controle de Carteira</p>
+      </div>
+
+      <form #f="ngForm" (ngSubmit)="login(f)">
+        <ion-list class="inputs">
+          <ion-item>
+            <ion-input type="email" name="email" placeholder="Email" ngModel required>
+            </ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-input type="password" name="password" placeholder="Senha" ngModel required>
+            </ion-input>
+          </ion-item>
+        </ion-list>
+
+        <div padding>
+          <button color="primary" ion-button block [disabled]="!f.valid">
+            Entrar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</ion-content>
