@@ -7,5 +7,9 @@
 </ion-header>
 
 <ion-content padding>
-  
+  <ion-list no-lines>
+    <button ion-item *ngFor="let acao of acoes" (click)="itemSelected(acao)">
+      {{ acao }}
+    </button> 
+  </ion-list>
 </ion-content>
