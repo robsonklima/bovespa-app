@@ -8,9 +8,9 @@ import { HttpModule } from '@angular/http';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
-import { LoginService } from '../services/login-service';
 import { StorageDataService } from '../services/storage-data-service';
 import { IonicStorageModule } from '@ionic/storage';
+import { UserService } from '../services/user-service';
 
 @NgModule({
   declarations: [
@@ -34,7 +34,7 @@ import { IonicStorageModule } from '@ionic/storage';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    LoginService,
+    UserService,
     StorageDataService
   ]
 })

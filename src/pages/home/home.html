@@ -8,10 +8,20 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <ion-list no-lines>
-    <button ion-item *ngFor="let acao of acoes" (click)="itemSelected(acao)">
-      {{ acao }}
-    </button> 
-  </ion-list>
+<ion-content>
+  <ion-refresher (ionRefresh)="pushUpdate($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-card *ngFor="let stock of user?.wallet" (click)="itemSelected(stock)">
+    <ion-item>
+      <ion-avatar item-start>
+        <img src="{{ stock?.info?.logo_url }}">
+      </ion-avatar>
+      <h2>{{ stock?.name }}</h2>
+      <p [ngClass]="{ 'font-green': stock?.info?.regularMarketPrice > stock?.info?.open }">
+        R$ {{ stock?.info?.regularMarketPrice }}
+      </p>
+    </ion-item>
+  </ion-card>  
 </ion-content>

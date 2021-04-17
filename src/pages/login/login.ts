@@ -3,8 +3,8 @@ import { NgForm } from '@angular/forms';
 import { AlertController, LoadingController, MenuController, NavController } from 'ionic-angular';
 import { StorageData } from '../../models/storage-data';
 import { User } from '../../models/user';
-import { LoginService } from '../../services/login-service';
 import { StorageDataService } from '../../services/storage-data-service';
+import { UserService } from '../../services/user-service';
 import { HomePage } from '../home/home';
 
 @Component({
@@ -13,7 +13,7 @@ import { HomePage } from '../home/home';
 })
 export class LoginPage implements OnInit {
   constructor(
-    private loginService: LoginService,
+    private userService: UserService,
     private loadingCtrl: LoadingController,
     private navCtrl: NavController,
     private menuCtrl: MenuController,
@@ -36,7 +36,7 @@ export class LoginPage implements OnInit {
       password: form.value.password
     }
     
-    this.loginService.login(user).subscribe((user: User) => {
+    this.userService.login(user).subscribe((user: User) => {
       if(user.email) {
         loading.dismiss().then(() => {
           let storageData = new StorageData();
