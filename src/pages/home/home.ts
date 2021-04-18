@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { LoadingController, ModalController } from 'ionic-angular';
-import { updateLanguageServiceSourceFile } from 'typescript';
 import { StorageData } from '../../models/storage-data';
 import { User } from '../../models/user';
 import { StorageDataService } from '../../services/storage-data-service';
