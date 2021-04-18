@@ -8,8 +8,6 @@ import { Stock } from '../models/stock';
 
 @Injectable()
 export class StockService {
-  private stocks: Stock[] = [];
-
   constructor(
     private http: Http
   ) { }
