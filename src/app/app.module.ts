@@ -11,12 +11,15 @@ import { LoginPage } from '../pages/login/login';
 import { StorageDataService } from '../services/storage-data-service';
 import { IonicStorageModule } from '@ionic/storage';
 import { UserService } from '../services/user-service';
+import { StockService } from '../services/stock-service';
+import { StockPage } from '../pages/stocks/stock';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    LoginPage
+    LoginPage,
+    StockPage
   ],
   imports: [
     BrowserModule,
@@ -28,14 +31,16 @@ import { UserService } from '../services/user-service';
   entryComponents: [
     MyApp,
     HomePage,
-    LoginPage
+    LoginPage,
+    StockPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     UserService,
-    StorageDataService
+    StorageDataService,
+    StockService
   ]
 })
 export class AppModule {}

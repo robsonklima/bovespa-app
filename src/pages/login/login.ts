@@ -54,7 +54,7 @@ export class LoginPage implements OnInit {
     },
     err => {
       loading.dismiss().then(() => {
-        this.showAlert(err);
+        this.showAlert('Não foi possível autenticar');
       });
     });
   }

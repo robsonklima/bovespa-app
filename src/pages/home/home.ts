@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
-import { LoadingController } from 'ionic-angular';
+import { LoadingController, ModalController } from 'ionic-angular';
+import { updateLanguageServiceSourceFile } from 'typescript';
 import { StorageData } from '../../models/storage-data';
 import { User } from '../../models/user';
 import { StorageDataService } from '../../services/storage-data-service';
 import { UserService } from '../../services/user-service';
+import { StockPage } from '../stocks/stock';
 
 @Component({
   selector: 'page-home',
@@ -16,10 +18,28 @@ export class HomePage {
   constructor(
     private storageDataService: StorageDataService,
     private userService: UserService,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    private modalCtrl: ModalController
   ) {}
 
   ionViewWillEnter() {
+    this.updateUser();
+  }
+
+  public pushUpdate(refresher) {
+    this.storageDataService.getStorageData().then((sd: StorageData) => {
+      this.storageData = sd;
+
+      this.userService.getUser(sd.user).subscribe((user: User) => {
+        this.user = user;
+        if (refresher) refresher.complete();
+      }, err => {
+        setTimeout(() => { if (refresher) refresher.complete() }, 2000);
+      });
+    }).catch();
+  }
+
+  private updateUser() {
     this.storageDataService.getStorageData().then((sd: StorageData) => {
       this.storageData = sd;
 
@@ -30,7 +50,6 @@ export class HomePage {
 
       this.userService.getUser(sd.user).subscribe((user: User) => {
         this.user = user;
-        console.log(user);
         loading.dismiss();
       }, err => {
         loading.dismiss();
@@ -38,17 +57,11 @@ export class HomePage {
     }).catch();
   }
 
-  public pushUpdate(refresher) {
-    this.storageDataService.getStorageData().then((sd: StorageData) => {
-      this.storageData = sd;
-
-      this.userService.getUser(sd.user).subscribe((user: User) => {
-        this.user = user;
-        console.log(user);
-        if (refresher) refresher.complete();
-      }, err => {
-        setTimeout(() => { if (refresher) refresher.complete() }, 2000);
-      });
-    }).catch();
+  public toStockPage() {
+    const modal = this.modalCtrl.create(StockPage, { user: this.user });
+    modal.present();
+    modal.onDidDismiss((user: User) => {
+      this.updateUser();
+    });
   }
 }

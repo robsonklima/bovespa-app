@@ -13,15 +13,28 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
-  <ion-card *ngFor="let stock of user?.wallet" (click)="itemSelected(stock)">
-    <ion-item>
+  <ion-list>
+    <ion-item *ngFor="let stock of user?.stocks">
       <ion-avatar item-start>
-        <img src="{{ stock?.info?.logo_url }}">
+        <img src="{{ stock?.info?.logo_url }}" onError="this.src='assets/imgs/logo-placeholder-png-300x300.png';">
       </ion-avatar>
       <h2>{{ stock?.name }}</h2>
-      <p [ngClass]="{ 'font-green': stock?.info?.regularMarketPrice > stock?.info?.open }">
-        R$ {{ stock?.info?.regularMarketPrice }}
-      </p>
+      <h3>
+        <span [ngClass]="{ 'font-green': stock?.info?.regularMarketPrice > stock?.info?.open,
+          'font-red': stock?.info?.regularMarketPrice < stock?.info?.open }">
+          R$ {{ stock?.info?.regularMarketPrice }} ({{ stock?.info?.open }})
+        </span>
+      </h3>
+      <p>I've had a pretty messed up day. If we just...</p>
     </ion-item>
-  </ion-card>  
+  </ion-list>
+
+  <p text-center *ngIf="!user?.stocks?.length">Adicione as ações que você deseja acompanhar</p>
+
+  <ion-fab right bottom>
+    <button ion-fab color="light"><ion-icon name="arrow-dropup"></ion-icon></button>
+    <ion-fab-list side="top">
+      <button ion-fab (click)="toStockPage()"><ion-icon name="ios-add-circle-outline"></ion-icon></button>
+    </ion-fab-list>
+  </ion-fab>
 </ion-content>

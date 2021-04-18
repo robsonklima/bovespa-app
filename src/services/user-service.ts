@@ -25,4 +25,10 @@ export class UserService {
       .map((res: Response) => res.json())
       .catch((error: any) => Observable.throw(error.json()));
   }
+
+  public postUser(user: User): Observable<User> {
+    return this.http.post(`${Config.API_URL}users`, user)
+      .map((res: Response) => res.json())
+      .catch((error: any) => Observable.throw(error.json()));
+  }
 }

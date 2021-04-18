@@ -1,0 +1,67 @@
+<ion-header>
+  <ion-navbar no-border-bottom>
+    <ion-buttons end>
+      <button 
+        ion-button 
+        icon-only 
+        (click)="closeModal()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+
+    <ion-title>Inserindo Operação</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <form #f="ngForm" (ngSubmit)="save(f)">
+    <ion-list class="inputs">
+      <ion-item>
+        <ion-label>Ação</ion-label>
+        <ion-select 
+          name="stock" 
+          placeholder="Selecione..." 
+          [ngModel]="stock" 
+          interface="action-sheet"
+          cancelText="Cancelar"
+          required>
+          <ion-option 
+            *ngFor="let stock of stocks" 
+            [value]="stock">
+            {{ stock.name }}
+          </ion-option>
+        </ion-select>
+      </ion-item>
+
+      <!-- <ion-item>
+        <ion-label>Tipo</ion-label>
+        <ion-select 
+          name="type" 
+          placeholder="Selecione..." 
+          [ngModel]="type" 
+          interface="action-sheet"
+          cancelText="Cancelar"
+          required>
+          <ion-option value="BUY">Compra</ion-option>
+          <ion-option value="SELL">Venda</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-input type="number" name="amount" placeholder="Quantidade" ngModel required>
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input type="number" name="value" placeholder="valor da Ação" ngModel required>
+        </ion-input>
+      </ion-item> -->
+    </ion-list>
+
+    <div padding>
+      <button color="primary" ion-button block [disabled]="!f.valid">
+        Salvar
+      </button>
+    </div>
+  </form>
+</ion-content>
